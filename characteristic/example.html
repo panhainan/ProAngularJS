@@ -7,14 +7,16 @@
 	<script src="angular.js"></script>
 	<script>
 		var myApp = angular.module("exampleApp",[]);
-		myApp.controller("dayCtrl",function($scope){
+		var now = new Date();
+		myApp.value("nowValue",now);
+		myApp.controller("dayCtrl",function($scope,days){
 			// console.log("controller")
-			$scope.day = new Date().getDay();
+			$scope.day = days.today;
 		});
 
-		myApp.controller("tomorrowCtrl",function($scope){
+		myApp.controller("tomorrowCtrl",function($scope,days){
 			
-			$scope.day=(new Date().getDay() + 1 )%7;
+			$scope.day=days.tomorrow;
 		});
 		myApp.directive("highlight",function($filter){
 			var dayFilter = $filter("dayName");
@@ -31,6 +33,11 @@
 				return angular.isNumber(input)?dayNames[input]:input;
 			}
 		});
+
+		myApp.service("days",function(nowValue){
+			this.today = nowValue.getDay();
+			this.tomorrow = this.today + 1;
+		})
 	</script>
 </head>
 <body>
