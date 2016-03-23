@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ng-app="directivesApp">
+<head>
+	<title>Directives</title>
+	<script src="angular.js"></script>
+	<link rel="stylesheet"  href="bootstrap.css">
+	<link rel="stylesheet"  href="bootstrap-theme.css">
+	<script>
+		angular.module("directivesApp",[])
+			.controller("defaultCtrl",function($scope){
+				$scope.todos = [
+					{action:"Get groceries",complete:false},
+					{action:"Call plumber",complete:false},
+					{action:"Get up",complete:true},
+					{action:"Get Study",complete:false},
+					{action:"Buy goods",complete:false}
+				];
+
+				$scope.buttonNames = ["Red","Green","Blue"];
+
+				$scope.settings = {
+					Rows:"Red",
+					Columns:"Green"
+				};
+			});
+	</script>
+	<style type="text/css">
+		tr.Red{
+			background-color:lightcoral;
+		}
+		tr.Green{
+			background-color:lightgreen;
+		}
+		tr.Blue{
+			background-color:lightblue;
+		}
+		td.Red{
+			background-color:red;
+		}
+		td.Green{
+			background-color:green;
+		}
+		td.Blue{
+			background-color:blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+		<h3 class="panel-header">To Do List</h3>
+		<!-- <div class="checkbox well">
+			<label>
+				<input type="checkbox" ng-model="todos[2].complete" />
+				Item 3 is complete
+			</label>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Action</th>
+					<th>Done</th> 
+				</tr>
+			</thead>
+			<tr ng-repeat="item in todos | filter:{complete:'false'}">
+				<td>{{$index+1}}</td>
+				<td>{{item.action}}</td>
+				<td>
+					<span ng-hide="item.complete">(Incomplete)</span>
+					<span ng-show="item.complete">(Done)</span>
+				</td>
+			</tr>
+		</table> -->
+		<div class="row well">
+			<div class="col-xs-6" ng-repeat="(key,val) in settings">
+				<h4>{{key}}</h4>
+				<div class="radio" ng-repeat="button in buttonNames">
+					<label>
+						<input type="radio" ng-model="settings[key]" value="{{button}}"/>{{button}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Action</th>
+					<th>Done</th> 
+				</tr>
+			</thead>
+			<!-- <tr ng-repeat="item in todos" ng-class="settings.Rows">
+				<td ng-class="settings.Columns">{{$index+1}}</td>
+				<td>{{item.action}}</td>
+				<td ng-style="{'background-color':settings.Columns}">
+					{{item.complete}}
+				</td>
+			</tr> -->
+			<tr ng-repeat="item in todos" ng-class-odd="settings.Columns" ng-class-even="settings.Rows">
+				<td>{{$index+1}}</td>
+				<td>{{item.action}}</td>
+				<td>
+					{{item.complete}}
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

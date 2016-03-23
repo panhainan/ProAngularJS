@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="directivesApp">
+<head>
+	<title>Directives</title>
+	<script src="angular.js"></script>
+	<link rel="stylesheet"  href="bootstrap.css">
+	<link rel="stylesheet"  href="bootstrap-theme.css">
+	<script>
+		angular.module("directivesApp",[])
+			.controller("defaultCtrl",function($scope){
+				$scope.todos = [
+					{action:"Call plumber",complete:false},
+					{action:"Get up",complete:true},
+					{action:"Get Study",complete:false},
+					{action:"Buy goods",complete:false}
+				];
+			});
+	</script>
+</head>
+<body>
+	<div class="panel" ng-controller="defaultCtrl">
+		<h3 class="panel-header">To Do List</h3>
+		<div>There are {{todos.length}} item</div>
+		<div>
+			There are <span ng-bind="todos.length"></span> items
+		</div>
+		<table class="table">
+			<tbody>
+				<tr ng-repeat-start="item in todos">
+					<td>This is item {{$index}}</td>
+				</tr>
+				<tr>
+					<td>The action is :{{item.action}}</td>
+				</tr>
+				<tr ng-repeat-end>
+					<td>Item {{$index}} is {{$item.complete?'':"not"}} complete</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
